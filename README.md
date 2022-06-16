@@ -7,10 +7,17 @@ Produk ini sedang dibangun sebagai bagian dari [React 2025](https://react2025.co
 ## Menjalankan di lokal
 
 ```bash
-$ git clone https://github.com/satriows25/komentardulu.git
-$ cd komentardulu
-$ npm install
-$ npm run dev
+# clone repository
+git clone https://github.com/satriows25/komentardulu.git
+
+# masuk ke dalam folder
+cd komentardulu
+
+# install dependencies
+npm install
+
+# jalankan dengan hot reload di localhost:3000
+npm run dev
 ```
 
 ## Dibangun menggunakan
