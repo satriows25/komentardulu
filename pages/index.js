@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Button, Heading, Text, Code } from '@chakra-ui/react';
+import { Button, Flex, Heading } from '@chakra-ui/react';
 
 import { useAuth } from '@/lib/auth';
 
@@ -7,25 +7,29 @@ const Home = () => {
   const auth = useAuth();
 
   return (
-    <>
+    <Flex
+      as="main"
+      direction="column"
+      align="center"
+      justify="center"
+      h="100vh"
+    >
       <Head>
         <title>KomentarDulu</title>
       </Head>
 
-      <main>
-        <Heading>KomentarDulu</Heading>
+      <Heading>KD</Heading>
 
-        <Text>
-          Pengguna aktif: <Code>{auth?.user ? auth.user.email : 'None'}</Code>
-        </Text>
-
-        {auth?.user ? (
-          <Button onClick={(e) => auth.signOut()}>Keluar</Button>
-        ) : (
-          <Button onClick={(e) => auth.signInWithGitHub()}>Masuk</Button>
-        )}
-      </main>
-    </>
+      {auth?.user ? (
+        <Button mt="4" size="sm" onClick={(e) => auth.signOut()}>
+          Keluar
+        </Button>
+      ) : (
+        <Button mt="4" size="sm" onClick={(e) => auth.signInWithGitHub()}>
+          Masuk
+        </Button>
+      )}
+    </Flex>
   );
 };
 

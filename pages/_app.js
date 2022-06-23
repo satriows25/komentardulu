@@ -1,4 +1,3 @@
-import '@fontsource/inter';
 import { ChakraProvider, CSSReset } from '@chakra-ui/react';
 import { Global, css } from '@emotion/react';
 import customTheme from '@/styles/theme';
