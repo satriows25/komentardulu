@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
+import useSWR, { useSWRConfig } from 'swr';
 import {
   Modal,
   ModalOverlay,
@@ -13,24 +14,65 @@ import {
   FormControl,
   FormLabel,
   Input,
+  useToast,
 } from '@chakra-ui/react';
 
 import { createSite } from '@/lib/db';
+import { useAuth } from '@/lib/auth';
 
-const AddSiteModal = () => {
+const AddSiteModal = ({ children }) => {
+  const { user } = useAuth();
+  const { mutate } = useSWRConfig();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
+  const toast = useToast();
 
-  const { register, handleSubmit } = useForm();
-  const onCreateSite = (values) => {
-    createSite(values);
+  const { register, handleSubmit, reset } = useForm();
+  const onCreateSite = ({ name, url }) => {
+    const newSite = {
+      authorId: user.uid,
+      createdAt: new Date().toISOString(),
+      name,
+      url,
+    };
+
+    createSite(newSite);
+    toast({
+      title: 'Sukses!',
+      description: 'Kami telah menyimpan situsmu.',
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    });
+    mutate(
+      '/api/sites',
+      async (data) => {
+        return { sites: [...data.sites, newSite] };
+      },
+      false,
+    );
+    reset({
+      name: '',
+      url: '',
+    });
     onClose();
   };
 
   return (
     <>
-      <Button variant="solid" size="md" onClick={onOpen}>
-        Tambah Situs Pertamamu
+      <Button
+        onClick={onOpen}
+        backgroundColor="gray.900"
+        color="white"
+        fontWeight="medium"
+        _hover={{ bg: 'gray.700' }}
+        _active={{
+          bg: 'gray.800',
+          transform: 'scale(0.95)',
+        }}
+      >
+        {children}
       </Button>
 
       <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
@@ -44,7 +86,7 @@ const AddSiteModal = () => {
               <Input
                 ref={initialRef}
                 placeholder="Situs saya"
-                {...register('site', { required: true })}
+                {...register('name', { required: true })}
               />
             </FormControl>
 
@@ -62,7 +104,7 @@ const AddSiteModal = () => {
               Batal
             </Button>
             <Button backgroundColor="#99FFFE" color="#194D4C" type="submit">
-              Tambah
+              Simpan
             </Button>
           </ModalFooter>
         </ModalContent>

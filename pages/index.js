@@ -12,7 +12,7 @@ const Home = () => {
       direction="column"
       align="center"
       justify="center"
-      h="100vh"
+      minH="100vh"
     >
       <Head>
         <title>KomentarDulu</title>
@@ -21,8 +21,8 @@ const Home = () => {
       <Heading>KD</Heading>
 
       {auth?.user ? (
-        <Button mt="4" size="sm" onClick={(e) => auth.signOut()}>
-          Keluar
+        <Button as="a" href="/dashboard" mt="4" size="sm">
+          Lihat Dashboard
         </Button>
       ) : (
         <Button mt="4" size="sm" onClick={(e) => auth.signInWithGitHub()}>
