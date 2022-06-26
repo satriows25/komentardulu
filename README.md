@@ -1,6 +1,6 @@
 # KomentarDulu
 
-> Tambahkan ulasan pengguna, feedback, dan komentar dengan mudah ke situs web Anda dalam satu baris kode.
+> Cara mudah untuk menambahkan ulasan pengguna, feedback, dan komentar dengan mudah ke situs web Anda dalam satu baris kode.
 
 Produk ini sedang dibangun sebagai bagian dari [React 2025](https://react2025.com).
 
@@ -18,6 +18,16 @@ npm install
 
 # jalankan dengan hot reload di localhost:3000
 npm run dev
+```
+
+## Environment Variables
+
+```
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+FIREBASE_PRIVATE_KEY=
+FIREBASE_CLIENT_EMAIL=
 ```
 
 ## Dibangun menggunakan
